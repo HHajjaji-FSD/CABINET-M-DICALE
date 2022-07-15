@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div {{ stimulus_controller('rendezvous') }}>
+        <div id="calendar" data-rendezvous-target="calendar">
+        </div>
+    </div>
+
+{% endblock %}

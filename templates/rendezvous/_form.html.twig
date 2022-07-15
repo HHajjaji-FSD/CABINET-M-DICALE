@@ -1,0 +1,11 @@
+<div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Patient</label>
+        {{ form_widget(formRDV.patient) }}
+    </div>
+    <div class="mb-3">
+        <label for="patient_dateRDV" class="form-label">Date de Rendez-vous</label>
+        {{ form_widget(formRDV.dateRDV) }}
+    </div>
+</div>
+{{ form_widget(formRDV) }}

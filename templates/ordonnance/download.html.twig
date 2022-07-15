@@ -1,0 +1,131 @@
+<style>
+    .title{
+        font-weight: bold;
+        margin-bottom: 4px;
+        text-align: center;
+        text-transform: uppercase;
+        border-bottom: black 4px solid;
+    }
+    .adress{
+        font-weight: bold;
+        text-align: center;
+        text-transform: capitalize;
+    }
+   #nom_mdc{
+       border: 2px solid black;
+   }
+   .date_nom h3{
+       font-weight: bold;
+       text-align: center;
+       text-transform: uppercase;
+       display: inline-block;
+       width: 45%;
+   }
+
+    .container_table{
+
+    }
+    .table_data{
+        width: 100%;
+        margin-bottom: 100px;
+    }
+    table tr th,table tr td{
+        padding: 10px 15px;
+        text-align: left;
+    }
+    .container_tables{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .container_tables div{
+        width: 49%;
+        display: inline-block;
+    }
+    .container_table_mdk{
+
+    }
+    .date_nom h4{
+        text-align: left;
+        display: inline-block;
+        width: 45%;
+    }
+
+</style>
+<main>
+    <header>
+        <h1 class="title">nom cabinet</h1>
+        <h3 class="adress">adresse cabinet</h3>
+    </header>
+    <section>
+        <div class="date_nom">
+            <h3 id="nom_mdc">Nom Medcin</h3>
+            <h3 >Date : 4/4/2000</h3>
+        </div>
+        <div class="container_table">
+            <table class="table_data" border="1px solid">
+                <tr>
+                    <th>Identitée</th>
+                    <td>{{ordonnance.consultation.patient.cin ? ordonnance.consultation.patient.cin : patient.responsable}}</td>
+
+                    <th>Nom complet</th>
+                    <td>{{ ordonnance.consultation.patient.nom }} {{ ordonnance.consultation.patient.prenom }}</td>
+
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>{{date().diff(ordonnance.consultation.patient.dateNaiss).y}}</td>
+
+                    <th>Sexe</th>
+                    <td>{{ordonnance.consultation.patient.sexe}}</td>
+                </tr>
+                <tr>
+                    <th>Mutuelle {{ ordonnance.consultation.patient.typeMetuale ? ordonnance.consultation.patient.typeMetuale : "" }}:</th>
+                    <td colspan="3">
+                        {{ ordonnance.consultation.patient.numMetuale ? ordonnance.consultation.patient.numMetuale : "Aucun" }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="container_tables">
+            <div>
+                <table width="100%" border="1px solid black">
+                    <tr>
+                        <th>Radio</th>
+                    </tr>
+                    {% for radio in ordonnance.radio %}
+                        <tr>
+                            <td>radio.nom</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <table width="100%" border="1px solid black">
+                    <tr>
+                        <th>Medicament</th>
+                    </tr>
+                    {% for medicament in ordonnance.medicaments %}
+                        <tr>
+                            <td>medicament.nom</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div>
+                <table width="100%" border="1px solid black">
+                    <tr>
+                        <th>Observation</th>
+                    </tr>
+                    <tr>
+                        <td style="height: 100px">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <footer class="date_nom" style="text-align: left">
+        <h4 style="text-align: left;">Price : {{ ordonnance.prixFinal }} DH</h4>
+        <h4 style="text-align: right;">Signature</h4>
+    </footer>
+</main>

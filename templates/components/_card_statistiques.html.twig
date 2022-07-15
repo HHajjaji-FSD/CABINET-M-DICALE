@@ -1,0 +1,16 @@
+<div class="col-lg-3 col-6 h-100">
+    <div class="small-box bg-{{ color }}">
+        <div class="inner">
+            <h3>{{ value }}</h3>
+            <p>{{ title }}</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-bag"></i>
+        </div>
+        {% if link is defined %}
+            <a href="{{ link }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        {% else %}
+            <div style="height: 30px"></div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<ul id="sortablelist" class="todo-list ui-sortable" data-widget="todo-list">
+    {% for attend in patients %}
+        <li data-target="{{ attend.attend.id }}">
+            <span class="handle ui-sortable-handle">
+                <i class="fas fa-ellipsis-v"></i>
+                <i class="fas fa-ellipsis-v"></i>
+            </span>
+            <div class="icheck-primary d-inline ml-2">
+                <input id="{{ attend.attend.id }}" type="checkbox" data-toggle="modal" data-target="#modal_consl_new" {% if attend.attend.isPassed %}checked{% endif %}>
+                <label for="todoCheck1"></label>
+            </div>
+            <span id="name-{{ attend.attend.id }}" class="text" {% if attend.attend.isPassed %}style="text-decoration: black line-through solid"{% endif %} >{{ attend }}</span>
+            {% include('attend/_delete_form.html.twig') with { 'id':attend.attend.id } %}
+        </li>
+    {% endfor %}
+</ul>
+
+
+
+

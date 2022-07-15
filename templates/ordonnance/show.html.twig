@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ordonnance{% endblock %}
+
+{% block body %}
+
+    {% embed "components/_card_page.html.twig" %}
+        {% block crdTitle "Ordonnance Information" %}
+
+        {% block crdTools %}
+            <a class="btn btn-sm btn-success" href=" {{ path('ordonnance_download', {'id': ordonnance.id}) }}"><i class="fas fa-edit"></i> Download</a>
+        {% endblock %}
+
+        {% block crdBody %}
+
+            <div class="row w-full">
+                {{ include('patient/blocs/patient_info.html.twig',{'patient':ordonnance.consultation.patient}) }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    {% embed "components/_card_page.html.twig" %}
+                        {% block crdColor "card-primary" %}
+                        {% block crdTitle "Radio" %}
+                        {% block crdBody %}
+                            <table class="table w-100">
+                                {% for radio in ordonnance.radio %}
+                                    <tr>
+                                        <th>{{ radio.nom }}</th>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% endblock %}
+                    {% endembed %}
+                </div>
+                <div class="col-md-6">
+                    {% embed "components/_card_page.html.twig" %}
+                        {% block crdColor "card-primary" %}
+                        {% block crdTitle "Medicaments" %}
+                        {% block crdBody %}
+                            <table class="table w-100">
+                                {% for medicament in ordonnance.medicaments %}
+                                    <tr>
+                                        <th>{{ medicament.nom }}</th>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% endblock %}
+                    {% endembed %}
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="text-bold">Price : </span>
+                <span> {{ ordonnance.prixFinal }} DH</span>
+            </div>
+
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

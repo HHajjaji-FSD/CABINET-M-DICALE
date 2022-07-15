@@ -1,0 +1,51 @@
+<div class="card-body p-0">
+    <div class="table-responsive mailbox-messages">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Prix</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for consultation in patient.consoltations %}
+                <tr>
+                    <td>{{ consultation.type }}</td>
+                    <td>{{ consultation.dateConsultation|ago }}</td>
+                    <td>{{ consultation.prix }} DH</td>
+                    <td>
+                        {% if consultation.ordonnance %}
+                            <a href="{{ path('ordonnance_show_by_const', {'id': consultation.id}) }}"><i
+                                        title="visite ordonnance" class="fa fa-eye"></i></a>
+                        {% else %}
+                            <a href="{{ path('ordonnance_new', {'id': consultation.id}) }}"><i
+                                        title="ajouter ordonnance" class="fa fa-plus"></i></a>
+                        {% endif %}
+
+                        &nbsp;&nbsp;
+
+                        <a href="#" data-toggle="modal" data-target="#modal_consl_edit{{ consultation.id }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        {% embed('components/_modal.html.twig') %}
+                            {% block id %}modal_consl_edit{{ consultation.id }}{% endblock %}
+                            {% block title %}Ajout d'une nouvelle Consultation{% endblock %}
+                            {% block action %}{{ path('consultation_edit',{ id:consultation.id }) }}{% endblock %}
+                            {% block body %}
+                                {{ render(path('consultation_edit', { id:consultation.id })) }}
+                            {% endblock %}
+                            {% block footer %}
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            {% endblock %}
+                        {% endembed %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

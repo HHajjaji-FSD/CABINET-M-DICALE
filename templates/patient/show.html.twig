@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patient{% endblock %}
+
+{% block body %}
+
+    {% embed "components/_card_page.html.twig" %}
+        {% block crdTitle "Patient Information" %}
+
+        {% block crdTools %}
+            {% if not patient.attend %}
+                <a class="btn btn-sm btn-success" href=" {{ path('attend_new', {'id': patient.id}) }}">ajouter a
+                    la list d'attend</a>
+            {% endif %}
+            <a class="btn btn-sm btn-info" href=" {{ path('patient_edit', {'id': patient.id}) }}"><i
+                        title="edit patient" class="fas fa-edit"></i> Modifie</a>
+            {{ include('patient/_delete_form.html.twig') }}
+        {% endblock %}
+
+        {% block crdBody %}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ include('patient/blocs/patient_info.html.twig') }}
+                </div>
+                <div class="col-md-6">
+                    {% embed "components/_card_page.html.twig" %}
+                        {% block crdColor "card-primary" %}
+                        {% block crdTitle "Maladies Cronique" %}
+                        {% block crdBody %}
+
+                            <div class="d-block">
+                                {{ patient.maladieCroniques }}
+                            </div>
+                        {% endblock %}
+                    {% endembed %}
+
+                    <ul class="nav my-4">
+                        <li class="nav-item">
+                            <a class="nav-link bg-success rounded" href="#" data-toggle="modal"
+                               data-target="#modal_consl_new">
+                                Nouveau Consultation
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card card-primary card-tabs">
+                <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" id="custom-tabs-one-profile-tab" data-toggle="pill"
+                               href="#contentRDV"
+                               role="tab" aria-controls="contentRDV" aria-selected="true">Rendez-vous</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                               href="#contentConsult"
+                               role="tab" aria-controls="contentConsult" aria-selected="false">Consultations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+                               href="#contentOrdon"
+                               role="tab" aria-controls="contentOrdon" aria-selected="false">Ordonnances</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-one-tabContent">
+                        <div class="tab-pane fade show active" id="contentRDV" role="tabpanel"
+                             aria-labelledby="contentRDV">
+                            {{ include('patient/blocs/patient_rendezvous.html.twig') }}
+                        </div>
+                        <div class="tab-pane fade" id="contentConsult" role="tabpanel" aria-labelledby="contentConsult">
+                            {{ include('patient/blocs/patient_consultation.html.twig') }}
+                        </div>
+                        <div class="tab-pane fade" id="contentOrdon" role="tabpanel" aria-labelledby="contentOrdon">
+                            {{ include('patient/blocs/patient_ordonnance.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+
+
+
+
+    {% embed('components/_modal.html.twig') %}
+        {% block id %}modal_consl_new{% endblock %}
+        {% block title %}Ajout d'une nouvelle Consultation{% endblock %}
+        {% block action %}{{ path('consultation_new_by_patient',{ id:patient.id }) }}{% endblock %}
+        {% block body %}
+            {{ render(path('consultation_new_by_patient', { id:patient.id })) }}
+        {% endblock %}
+        {% block footer %}
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

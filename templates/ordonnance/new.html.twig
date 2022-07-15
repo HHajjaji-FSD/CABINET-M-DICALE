@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ordonnance{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {{ encore_entry_script_tags('ordonnance') }}
+
+{% endblock %}
+
+{% block body %}
+    {{ include('ordonnance/_form.html.twig') }}
+    <a href="{{ path('patient_show',{ 'id':patient.id }) }}" title="retour">
+        <i class="fas fa-arrow-circle-left d-flex justify-content-center"></i>
+    </a>
+
+{% endblock %}

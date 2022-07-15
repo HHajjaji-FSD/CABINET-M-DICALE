@@ -1,0 +1,34 @@
+{% embed "components/_card_page.html.twig" %}
+    {% block crdColor "card-primary" %}
+    {% block crdTitle "Information" %}
+    {% block crdBody %}
+        <table class="table w-100">
+            <tr>
+                <th>Identitée</th>
+                <td>{{patient.cin ? patient.cin : patient.responsable}}</td>
+            </tr>
+            <tr>
+                <th>Nom complet</th>
+                <td>{{ patient.nom }} {{ patient.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{date().diff(patient.dateNaiss).y}}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{patient.sexe}}</td>
+            </tr>
+            <tr>
+                <th>Mutuelle {{ patient.typeMetuale ? patient.typeMetuale : "" }}:</th>
+                <td>
+                    {{ patient.numMetuale ? patient.numMetuale : "Aucun" }}
+                </td>
+            </tr>
+        </table>
+    {% endblock %}
+{% endembed %}
+
+
+
+

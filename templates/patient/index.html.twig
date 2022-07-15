@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patients{% endblock %}
+
+{% block body %}
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            {% if app.request.get('_route')=='patient_attend' %}
+                {% include('patient/_clear_attend_form.html.twig') %}
+            {% else %}
+                <h3 class="card-title">La liste des patients</h3>
+            {% endif %}
+            <div class="card-tools">
+                <form action="{{ path(app.request.get('_route')) }}" class="input-group input-group-sm">
+                    <input type="text" name="search" value="{{ last_search|default('') }}" class="form-control" placeholder="Rechercher...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                    <tr>
+                        {% if app.request.get('_route')=='patient_attend' %}
+                            <th></th>
+                        {% endif %}
+                        <th>Identitée</th>
+                        <th>Nom Complet</th>
+                        <th>Age</th>
+                        <th>Date de création</th>
+                        <th></th>
+                    </tr>
+                    {% for patient in pagination %}
+                    <tr>
+                        {% if app.request.get('_route')=='patient_attend' %}
+                            <td>
+                                <span class="handle ui-sortable-handle" style="cursor: move">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </span>
+                            </td>
+                        {% endif %}
+                        <td class="mailbox-name">{{patient.cin?patient.cin:patient.responsable}}</td>
+                        <td class="mailbox-attachment">{{ patient.nom }} {{ patient.prenom }}</td>
+                        <td>{{date().diff(patient.dateNaiss).y}}</td>
+                        <td class="mailbox-date">{{patient.dateCreation|ago}}</td>
+                        <td>
+                            <div class="float-right">
+                                {% if not patient.attend %}
+                                    <a class="btn btn-sm btn-success" href=" {{ path('attend_new', {'id': patient.id}) }}"><i  title="ajouter a la list d'attend" class="fas fa-external-link-alt"></i></a>
+                                {% endif %}
+                                    <a class="btn btn-sm btn-secondary" href=" {{ path('patient_show', {'id': patient.id}) }}"><i title="visite patient" class="fa fa-eye"></i></a>
+                                {% if app.request.get('_route')!='patient_attend' %}
+                                    <a class="btn btn-sm btn-info" href=" {{ path('patient_edit', {'id': patient.id}) }}"><i title="edit patient" class="fas fa-edit"></i></a>
+                                    {{ include('patient/_delete_form.html.twig') }}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer p-0">
+            <div class="float-right mr-2">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

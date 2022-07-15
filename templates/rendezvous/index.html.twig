@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Rendez-vous{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('calendar_rdv') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="">
+        <div id="calendar"></div>
+    </div>
+
+    <button id="btn_show_rdv" type="button" class="d-none" data-toggle="modal" data-target="#modal_show_rdv"></button>
+    <button id="btn_new_rdv" type="button" class="d-none" data-toggle="modal" data-target="#modal_new_rdv"></button>
+
+    <!-- SHOW RENDEZVOUS -->
+    {% embed('components/_modal.html.twig') %}
+        {% block id %}modal_show_rdv{% endblock %}
+        {% block title %}Rendez-Vous{% endblock %}
+        {% block body %}
+
+            <div class="form-group">
+                <label>Patient :</label>
+                <input id="rendezvous_show_patient" class="form-control" disabled />
+            </div>
+
+            <div class="form-group">
+                <label>Date Rendez-Vous :</label>
+                <input id="rendezvous_show_date_rdv" class="form-control" disabled />
+            </div>
+
+        {% endblock %}
+        {% block footer %}
+            <a href="#" id="rendezvous_show_btn_attend" type="button" class="btn btn-primary">Ajouter a la list d'attend</a>
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

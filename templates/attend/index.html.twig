@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patients{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('list_sortable') }}
+{% endblock %}
+
+{% block body %}
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            {% include('patient/_clear_attend_form.html.twig') %}
+            <div class="card-tools">
+                <form action="{{ path(app.request.get('_route')) }}" class="input-group input-group-sm">
+                    <input type="text" name="search" value="{{ last_search|default('') }}" class="form-control" placeholder="Rechercher..."/>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        {% include('attend/_list_attend.html.twig') with { 'patients':patients } %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% embed('components/_modal.html.twig') %}
+        {% block id %}modal_consl_new{% endblock %}
+        {% block title %}Ajout d'une nouvelle Consultation{% endblock %}
+        {% block action %}{{ path('consultation_new_by_attend',{ id:'id' }) }}{% endblock %}
+        {% block body %}
+            {{ render(path('consultation_new_by_attend', { id:0 })) }}
+        {% endblock %}
+        {% block footer %}
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

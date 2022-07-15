@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification{% endblock %}
+
+{% block body %}
+
+    {{ include('depenses/_form.html.twig', {'button_label': 'Modifier cette dépence'}) }}
+
+    <a href="{{ path('depenses_index') }}" title="retour"><i class="fas fa-arrow-circle-left d-flex justify-content-center"></i></a>
+
+{% endblock %}

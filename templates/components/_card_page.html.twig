@@ -1,0 +1,18 @@
+<div class="card w-100 {% block crdColor %}card-primary{% endblock %}">
+    <div class="card-header">
+        <h4 class="card-title">{% block crdTitle %}{% endblock %}</h4>
+        <div class="d-block float-right">
+            {% block crdTools %}
+            {% endblock %}
+        </div>
+
+    </div>
+    <div class="card-body">
+        {% block crdBody %}{% endblock %}
+    </div>
+    <div>
+        {% block crdFooter %}{% endblock %}
+    </div>
+
+
+</div>

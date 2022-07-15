@@ -1,0 +1,62 @@
+
+{#{{ form_start(form) }}#}
+
+<form method="post" action="{{ path('app_setting') }}">
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.prixConsultation) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.nomCabinet) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.specialite) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.adresse) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.telephone) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.logo) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.typeRdv) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_row(form.numMatin) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_row(form.numMedi) }}
+    </div>
+    <div class="col-md-12" style="display: none">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th></th>
+                {% for day in myOps.days %}
+                    <th>{{ day }}</th>
+                {% endfor %}
+            </tr>
+            {% for i in 0..23 %}
+                <tr>
+                    <td>{{ "%02d"|format(i) }}h</td>
+                    {% for day in myOps.days %}
+                        <th>
+                            <input type="checkbox" value="1" name="{{ day~"["~i~"]" }}">
+                        </th>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{{ form_widget(form) }}
+
+<button type="submit" class="btn btn-success">Enregistre</button>
+
+</form>
+
+{#{ form_end(form) }}#}

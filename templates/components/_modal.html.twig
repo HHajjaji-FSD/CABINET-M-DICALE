@@ -1,0 +1,18 @@
+<div class="modal fade" id="{% block id %}{% endblock %}" style="display: none; z-index: 50000" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{% block action %}{% endblock %}" method="{% block method %}post{% endblock %}" class="modal-content bg-white">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title">{% block title %}{% endblock %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% block body %}{% endblock %}
+            </div>
+            <div class="modal-footer justify-content-between">
+                {% block footer %}{% endblock %}
+            </div>
+        </form>
+    </div>
+</div>

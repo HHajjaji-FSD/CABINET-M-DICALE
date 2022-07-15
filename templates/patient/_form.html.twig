@@ -1,0 +1,85 @@
+<div class="col-md-10 container-fluid">
+    {{ form_start(form, {"action": path('patient_new')}) }}
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Ajout d'un nouveau patient</h3>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.nom) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.prenom) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.sexe) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.dateNaiss) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center mb-2">
+                        <input type="checkbox" id="check_cin" class="mb-1" checked/>
+                        <label class="text-sm ml-1" for="check_cin">a une carte d'identitée ?</label>
+                    </div>
+                    <div class="{% if patient.nom and (not patient.cin) %}d-none{% endif %}" id="_txtCin">
+                        {{ form_row(form.cin) }}
+                    </div>
+                    <div class="{% if not patient.responsable %}d-none{% endif %}" id="txt_resp">
+                        {{ form_row(form.responsable) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.typeMetuale) }}
+                    <div class="{% if not patient.typeMetuale %}d-none{% endif %}" id="div_num_m">
+                        {{ form_row(form.numMetuale) }}
+                    </div>
+                </div>
+            </div>
+
+            {{ form_row(form.maladieCroniques) }}
+
+        </div>
+
+        <div class="card-footer">
+            {{ form_widget(form.Enregistrer) }}
+        </div>
+
+    </div>
+    {{ form_end(form) }}
+</div>
+<script>
+    let check = document.getElementById('check_cin');
+    let txt_cin = document.getElementById('_txtCin');
+    let txt_resp = document.getElementById('txt_resp');
+    check.addEventListener("click", () => {
+        if (check.checked) {
+            txt_cin.classList.remove("d-none");
+            txt_resp.classList.add("d-none");
+        } else {
+            txt_cin.classList.add("d-none");
+            txt_resp.classList.remove("d-none");
+        }
+    })
+</script>
+<script>
+    let cmb_type_m = document.getElementById("patient_typeMetuale");
+    let div_num_m = document.getElementById("div_num_m");
+    cmb_type_m.addEventListener("change", () => {
+        if (cmb_type_m.value == 0) {
+            div_num_m.classList.add("d-none");
+        } else {
+            div_num_m.classList.remove("d-none");
+        }
+    });
+</script>
+
+

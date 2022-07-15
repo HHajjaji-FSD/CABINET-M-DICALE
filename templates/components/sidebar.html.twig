@@ -1,0 +1,113 @@
+{% set currentPage = app.request.get('_route') %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+    <a href="#" class="brand-link text-center">
+        <img src="" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light h3">Cabinet</span>
+    </a>
+
+    <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+        <div class="os-padding">
+            <div class="os-viewport os-viewport-native-scrollbars-invisible">
+                <div class="os-content">
+
+                    <div class="user-panel mb-3 d-flex align-items-center p-3">
+                        <i class="nav-icon fa-solid fa-user text-light mr-3"></i>
+                        <div class="info">
+                            <a href="{{ path('app_profile') }}" class="d-block">Administrateur</a>
+                        </div>
+                    </div>
+
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item">
+                                <a href="{{ path('app_dashboard') }}" class="nav-link {{ currentPage=='app_dashboard' ?'active':'' }}">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>
+                                        Accueil
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ (currentPage=='patient_index' or currentPage=='patient_rendezvous' or currentPage=='patient_archive' or currentPage=='patient_new') ?'menu-open':'' }}">
+                                <a href="#" class="nav-link {{ (currentPage=='patient_index' or currentPage=='patient_rendezvous' or currentPage=='patient_archive' or currentPage=='patient_new') ?'active':'' }}">
+                                    <i class="nav-icon fas fa-procedures"></i>
+                                    <p>
+                                        Patients
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ path('patient_index') }}" class="nav-link {{ currentPage=='patient_index' ?'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tous</p>
+                                            <span class="badge bg-info right">{{ps.getNumberAll}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('patient_rendezvous') }}" class="nav-link {{ currentPage=='patient_rendezvous' ?'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Rendez-vous</p>
+                                            <span class="badge bg-primary right">{{ps.getNumberRendezvous}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('patient_archive') }}" class="nav-link {{ currentPage=='patient_archive' ?'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Archive</p>
+                                            <span class="badge bg-warning right">{{ps.getNumberArchive}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('patient_new')}}" class="nav-link {{ currentPage=='patient_new' ?'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Nouveau</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('patient_attend') }}" class="nav-link {{ currentPage=='patient_attend' ?'active':'' }}">
+                                    <i class="nav-icon fas fa-clipboard-list"></i>
+                                    <p>
+                                        List d'attend
+                                    </p>
+                                    <span class="badge bg-primary right">{{ps.getNumberAttend}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ (currentPage=='rendezvous_index' or currentPage=='rendezvous_new') ?'menu-open':'' }}">
+                                <a href="#" class="nav-link {{ (currentPage=='rendezvous_index' or currentPage=='rendezvous_new') ?'active':'' }}">
+                                    <i class="nav-icon fa-solid fa-calendar-check"></i>
+                                    <p>
+                                        Rendez-vous
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ path('rendezvous_index') }}" class="nav-link {{ currentPage=='rendezvous_index' ?'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tous</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('rendezvous_new') }}" class="nav-link {{ currentPage=='rendezvous_new' ?'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Nouveau</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{path("depenses_index")}}" class="nav-link {{ currentPage=='depenses_index' ?'active':'' }}">
+                                    <i class="nav-icon fas fa-dollar-sign"></i>
+                                    <p>
+                                        Depences
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

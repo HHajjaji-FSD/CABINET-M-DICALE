@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                {% include('components/_card_statistiques.html.twig') with { 'color':'info','title':'Rendez-Vous','value':nbrPatientsRendezvous,'link':path('patient_rendezvous') } %}
+                {% include('components/_card_statistiques.html.twig') with { 'color':'warning','title':'List d\'Attend','value':nbrPatientsAttend,'link':path('patient_attend') } %}
+                {% include('components/_card_statistiques.html.twig') with { 'color':'success','title':'Revenus Quotidiennes','value':(nbrBenifices!=' DH'?nbrBenifices:'0 DH') } %}
+                {% include('components/_card_statistiques.html.twig') with { 'color':'danger','title':'Dépenses Totales','value':totalDepenses } %}
+
+            </div>
+            <div class="row">
+                <div class="card w-100">
+                    <div class="card-header ui-sortable-handle">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-pie mr-1"></i>
+                            Sales
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {{ render_chart(chart,{'class':'w-100'}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

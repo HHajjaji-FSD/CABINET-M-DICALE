@@ -1,0 +1,25 @@
+
+<div class="card-body p-0">
+    <div class="table-responsive mailbox-messages">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Date du rendez-vous</th>
+                <th>Confirmation</th>
+                <th >Date de création</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rendezvous in patient.rendezVouses %}
+                <tr>
+                    <td>{{rendezvous.dateRDV|ago}}</td>
+                    <td>{{rendezvous.isConfermed?'oui':'Non'}}</td>
+                    <td>{{rendezvous.dateCreation|ago}}</td>
+                </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
